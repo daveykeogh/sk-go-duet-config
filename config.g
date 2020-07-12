@@ -38,8 +38,8 @@ M574 Z1 S2                                ; set active high endstops
 M574 X1 Y1 S3                             ; set endstops controlled by motor stall detection
 
 ; Z-Probe
-M558 P5 I1 H10 F400 T6000 A3              ; set Z probe type to switch and the dive height + speeds
-G31 P500 X0 Y0 Z1.3                      ; set Z probe trigger value, offset and trigger height
+M558 P1 H10 F120 T6000                    ; set Z probe type to switch and the dive height + speeds
+G31 P500 X0 Y25 Z3.18                     ; set Z probe trigger value, offset and trigger height
 M557 X15:280 Y15:280 S40                  ; define mesh grid
 
 ; Heaters
