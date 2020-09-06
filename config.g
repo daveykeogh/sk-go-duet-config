@@ -16,11 +16,13 @@ M586 P1 S0                                ; disable FTP
 M586 P2 S0                                ; disable Telnet
 
 ; Drives
-M569 P0 S1                                ; physical drive 0 goes forwards
-M569 P1 S1                                ; physical drive 1 goes forwards
-M569 P2 S0                                ; physical drive 4 goes backwards
-M569 P3 S0                                ; physical drive 3 goes backwards
-M584 X0 Y1 Z2 E3                          ; set drive mapping
+M569 P0 S1                                ; physical drive 0 goes forwards (x)
+M569 P1 S1                                ; physical drive 1 goes forwards (y) 
+M569 P2 S0                                ; physical drive 2 goes backwards (first z)
+M569 P3 S0                                ; physical drive 3 goes backwards (extruder)
+M569 P4 S0                                ; physical drive 4 goes backwards (second z)
+M584 X0 Y1 Z2:4 E3                        ; set drive mapping. Use two steppers for z.
+M671 X-47.5:355 Y150.0:150.0              ; Setting the lead screw positions of Left (-47.5, 150), Right (355, 150)
 M350 X16 Y16 Z16 E16 I1                   ; configure microstepping with interpolation
 M92 X200.00 Y200.00 Z1600.00 E415.00       ; set steps per mm
 M566 X900.00 Y900.00 Z12.00 E7200.00      ; set maximum instantaneous speed changes (mm/min)
