@@ -12,19 +12,22 @@ G91                     ; relative positioning
 G1 H2 Z5 F6000          ; lift Z relative to current position
 
 ; Home X
-G1 H1 X50 F3000
-G1 H1 X-315 F6000       ; move quickly to X 
+G1 H1 X30 F3000
+G1 H1 X-350 F6000       ; move quickly to X 
 G1 H1 X10                ; Move in 5mm
 
 ; Home Y
-G1 H1 Y50 F3000
-G1 H1 Y-315 F6000       ; move quickly to Y 
-G1 H1 Y20               ; Move back 10mm
+G1 H1 Y30 F3000
+G1 H1 Y-350 F6000       ; move quickly to Y 
+G1 H1 Y17               ; Move back 10mm
 
 G90
+G92 X6 Y0               ; Set of build offset based upon bed measurements
+G1 H1 Y280              ; Sent the print head to the back of the printer to clear new prints
 
 ; Home Z
 G30
 
 M400			        ; make sure everything has stopped before we reset the motor currents
 M913 X100 Y100          ; motor currents back to 100%
+

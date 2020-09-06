@@ -18,3 +18,6 @@ G90               ; absolute positioning
 
 M400			; make sure everything has stopped before we reset the motor currents
 M913 X100       ; motor currents back to 100%
+
+G92 X6                  ; Set of build offset based upon bed measurements
+G1 H1 Y280              ; Sent the print head to the back of the printer to clear new prints
