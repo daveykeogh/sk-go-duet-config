@@ -22,7 +22,7 @@ M569 P2 S0                                              ; physical drive 2 goes 
 M569 P3 S0                                              ; physical drive 3 goes backwards
 M569 P4 S0                                              ; physical drive 4 goes backwards (second z)
 M584 X0 Y1 Z2:4 E3                                      ; set drive mapping. Use two steppers for z.
-M671 X-50.1:350.2 Y150.0:150.0 P2 S2                    ; Setting the lead screw positions of Left (-47.5, 150), Right (355, 150). 2mm Pitch.
+M671 X-50.1:350.2 Y150.0:150.0 P2 S5                    ; Setting the lead screw positions of Left (-47.5, 150), Right (355, 150). 2mm Pitch. 2mm max correction.
 M350 X16 Y16 Z16 E16 I1                                 ; configure microstepping with interpolation
 M92 X200.00 Y200.00 Z1600.00 E415.00                    ; set steps per mm
 
@@ -30,7 +30,7 @@ M92 X200.00 Y200.00 Z1600.00 E415.00                    ; set steps per mm
 M566 X900.00 Y900.00 Z50.00 E7200.00                    ; set maximum instantaneous speed changes (mm/min)
 M203 X6000.00 Y6000.00 Z1800.00 E600.00                 ; set maximum speeds (mm/min)
 M201 X1000.00 Y1000.00 Z20.00 E250.00                   ; set accelerations (mm/s^2)
-M906 X800 Y800 Z1000 E1000 I40                          ; set motor currents (mA) and motor idle factor in per cent
+M906 X800 Y800 Z1000 E1000 I20                          ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                                 ; Set idle timeout
 
 ; Axis Limits
@@ -43,8 +43,9 @@ M574 Y1 S3                                              ; configure sensorless e
 M574 Z1 S2                                              ; configure Z-probe endstop for low end on Z
 
 ; Z-Probe
-M558 P1 C"zprobe.in" H10 F80 T6000                      ; set Z probe type to unmodulated and the dive height + speeds
-G31 P513 X0 Y25 Z3.21                                   ; set Z probe trigger value, offset and trigger height
+M558 P9 C"^zprobe.in" H5 F100 T2000                     ; set Z probe type for bltouch
+M950 S0 C"exp.heater3"                                  ; set exp.heater3 (pin 8 on expansion as gpio)
+G31 X24 Y0 Z2.7 P25
 M557 X25:280 Y25:280 S40                                ; define mesh grid
 
 ; Heaters
