@@ -45,7 +45,7 @@ M574 Z1 S2                                              ; configure Z-probe ends
 ; Z-Probe
 M558 P9 C"^zprobe.in" H5 F100 T2000                     ; set Z probe type for bltouch
 M950 S0 C"exp.heater3"                                  ; set exp.heater3 (pin 8 on expansion as gpio)
-G31 X24 Y0 Z2.7 P25
+G31 X24 Y0 Z2.94 P25
 M557 X25:280 Y25:280 S40                                ; define mesh grid
 
 ; Heaters
@@ -54,18 +54,23 @@ M950 H0 C"bedheat" T0                                   ; create bed heater outp
 M307 H0 B1 S1.00                                        ; enable bang-bang mode for the bed heater and set PWM limit
 M140 H0                                                 ; map heated bed to heater 0
 M143 H0 S120                                            ; set temperature limit for heater 0 to 120C
-M308 S1 P"e0temp" Y"thermistor" T100000 B4725 C7.06e-8  ; configure sensor 1 as thermistor on pin e0temp
+; PT100 Temperature Sensor Configuration
+M308 S1 P"spi.cs1" Y"rtd-max31865"                     ; define temperature sensor number 1 as a PT100 on the first port of a temperature daughter board plugged into the expansion board with CAN bus address 3.
 M950 H1 C"e0heat" T1                                    ; create nozzle heater output on e0heat and map it to sensor 1
 M307 H1 B0 S1.00                                        ; disable bang-bang mode for heater  and set PWM limit
 M143 H1 S350                                            ; set temperature limit for heater 1 to 350C
+
+; Old thermistor attached to mosquito hotend cooler block
+M308 S2 P"e0temp" Y"thermistor" T100000 B4725 C7.06e-8 A"Hotend Cooler"  ; configure sensor 2 as thermistor on pin e0temp
+
 
 ; Fans
 M950 F0 C"fan0" Q500                                    ; create fan 0 on pin fan0 and set its frequency
 M106 P0 S0 H-1                                          ; set fan 0 value. Thermostatic control is turned off
 M950 F1 C"fan1" Q500                                    ; create fan 1 on pin fan1 and set its frequency
-M106 P1 S1 H1 T70                                       ; set fan 1 value. Thermostatic control is turned on
+M106 P1 S210 H1 T70                                       ; set fan 1 value. Thermostatic control is turned on
 M950 F2 C"fan2" Q500                                    ; create fan 1 on pin fan2 and set its frequency
-M106 P2 S1 H1 T100                                      ; set fan 2 value. Thermostatic control is turned on
+M106 P2 S140 H1 T100                                      ; set fan 2 value. Thermostatic control is turned on
 
 ; Tools
 M563 P0 D0 H1 F0                                        ; define tool 0
